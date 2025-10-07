@@ -7,6 +7,8 @@ import GetStarted from './pages/GetStarted.tsx';
 import LearnMore from './pages/LearnMore.tsx';
 import Integrations from './pages/Integration.tsx';
 import ViewMore from './pages/ViewMore.tsx';
+import Login from './pages/Login.tsx';
+import Signup from './pages/Signup.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -17,6 +19,8 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/learn-more" element={<LearnMore />} />
         <Route path="/integrations" element={<Integrations />} />
         <Route path="/view-more" element={<ViewMore />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>
