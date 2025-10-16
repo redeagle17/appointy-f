@@ -18,6 +18,7 @@ export default function Login() {
 
   const handleGoogleLogin = () => {
     // TODO: Implement Google OAuth
+    window.location.href = "http://localhost:3000/api/auth/google";
     console.log('Login with Google');
   };
 
@@ -147,7 +148,7 @@ export default function Login() {
                   d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
                 />
               </svg>
-              <span>Continue with Google</span>
+              <span>Log in with Google</span>
             </button>
           </div>
 

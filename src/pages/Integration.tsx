@@ -1,32 +1,33 @@
 import { Link } from 'react-router-dom';
-import { Calendar, ArrowLeft, Mail, Video, Zap, Clock, Globe, MessageSquare, CreditCard, FileText, Database } from 'lucide-react';
+import { Calendar, ArrowLeft, Zap, Clock, Globe, MessageSquare, CreditCard, FileText, Database, Mail } from 'lucide-react';
+import { GoogleCalendarLogo, OutlookLogo, ZoomLogo, GoogleMeetLogo } from '../components/BrandLogos';
 
 export default function Integrations() {
   const integrations = [
     {
       name: 'Google Calendar',
-      icon: Calendar,
+      icon: GoogleCalendarLogo,
       description: 'Sync appointments with Google Calendar in real-time. Two-way sync ensures you never miss a booking.',
       color: 'from-blue-600 to-blue-400',
       category: 'Calendar'
     },
     {
       name: 'Microsoft Outlook',
-      icon: Mail,
+      icon: OutlookLogo,
       description: 'Connect with Outlook Calendar and email to manage all your appointments in one place.',
       color: 'from-cyan-600 to-blue-600',
       category: 'Calendar'
     },
     {
       name: 'Zoom',
-      icon: Video,
+      icon: ZoomLogo,
       description: 'Automatically create Zoom meeting links for virtual appointments. Seamless video conferencing.',
       color: 'from-purple-600 to-blue-600',
       category: 'Video'
     },
     {
       name: 'Google Meet',
-      icon: Video,
+      icon: GoogleMeetLogo,
       description: 'Generate Google Meet links automatically for all your online meetings and consultations.',
       color: 'from-green-600 to-teal-600',
       category: 'Video'
@@ -166,9 +167,9 @@ export default function Integrations() {
                     </p>
                   </div>
                 </div>
-                <button className="mt-4 w-full py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg text-sm font-medium transition-all">
+                {/* <button className="mt-4 w-full py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg text-sm font-medium transition-all">
                   Connect
-                </button>
+                </button> */}
               </div>
             ))}
           </div>

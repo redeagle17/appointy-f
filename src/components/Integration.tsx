@@ -1,13 +1,14 @@
 import { Link } from 'react-router-dom';
-import { Zap, Calendar, Mail, Chrome, Video } from 'lucide-react';
+import { Zap, Chrome, Calendar } from 'lucide-react';
+import { GoogleCalendarLogo, OutlookLogo, ZoomLogo } from './BrandLogos';
 
 export default function Integration() {
   const integrations = [
-    { name: 'Google Calendar', icon: Calendar, color: 'text-blue-400' },
-    { name: 'Outlook', icon: Mail, color: 'text-cyan-400' },
-    { name: 'Zoom', icon: Video, color: 'text-purple-400' },
-    { name: 'Zapier', icon: Zap, color: 'text-orange-400' },
-    { name: 'Chrome', icon: Chrome, color: 'text-green-400' }
+    { name: 'Google Calendar', icon: GoogleCalendarLogo },
+    { name: 'Microsoft Outlook', icon: OutlookLogo },
+    { name: 'Zoom', icon: ZoomLogo },
+    { name: 'Zapier', icon: Zap },
+    { name: 'Chrome', icon: Chrome }
   ];
 
   return (
@@ -57,7 +58,11 @@ export default function Integration() {
                       animationDelay: `${idx * 0.2}s`
                     }}
                   >
-                    <integration.icon className={`w-10 h-10 ${integration.color}`} />
+                    {typeof integration.icon === 'function' ? (
+                      <integration.icon className="w-10 h-10" />
+                    ) : (
+                      <Calendar className="w-10 h-10 text-blue-400" />
+                    )}
                   </div>
                 );
               })}
