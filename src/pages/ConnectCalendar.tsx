@@ -87,7 +87,7 @@ export default function ConnectCalendar() {
             <h2 className="text-2xl font-bold text-white mb-2">Skip for now</h2>
             <p className="text-gray-400 mb-4">You can connect your calendar anytime from settings.</p>
             <Link
-              to="/"
+              to="/dashboard"
               className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full font-medium hover:shadow-lg hover:shadow-purple-500/30 transition-all"
               onClick={() => {
                 try {

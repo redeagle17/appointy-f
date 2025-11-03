@@ -10,6 +10,7 @@ import ViewMore from './pages/ViewMore.tsx';
 import Login from './pages/Login.tsx';
 import Signup from './pages/Signup.tsx';
 import ConnectCalendar from './pages/ConnectCalendar.tsx';
+import Dashboard from './pages/Dashboard.tsx';
 
 // function PostSignupGate({ children }: { children: React.ReactNode }) {
 //   const flag = typeof window !== 'undefined' ? localStorage.getItem('postSignup') : null;
@@ -29,6 +30,7 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/connect-calendar" element={<ConnectCalendar />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>
