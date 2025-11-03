@@ -1,6 +1,6 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './index.css';
 import App from './App.tsx';
 import GetStarted from './pages/GetStarted.tsx';
@@ -11,11 +11,11 @@ import Login from './pages/Login.tsx';
 import Signup from './pages/Signup.tsx';
 import ConnectCalendar from './pages/ConnectCalendar.tsx';
 
-function PostSignupGate({ children }: { children: React.ReactNode }) {
-  const flag = typeof window !== 'undefined' ? localStorage.getItem('postSignup') : null;
-  if (!flag) return <Navigate to="/" replace />;
-  return <>{children}</>;
-}
+// function PostSignupGate({ children }: { children: React.ReactNode }) {
+//   const flag = typeof window !== 'undefined' ? localStorage.getItem('postSignup') : null;
+//   if (!flag) return <Navigate to="/" replace />;
+//   return <>{children}</>;
+// }
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -28,14 +28,7 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/view-more" element={<ViewMore />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route
-          path="/connect-calendar"
-          element={
-            <PostSignupGate>
-              <ConnectCalendar />
-            </PostSignupGate>
-          }
-        />
+        <Route path="/connect-calendar" element={<ConnectCalendar />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>

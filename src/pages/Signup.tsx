@@ -1,34 +1,67 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { Calendar, Mail, Lock, Eye, EyeOff, User } from 'lucide-react';
 
 export default function Signup() {
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const errorMessage = searchParams.get('error');
+    if (errorMessage === 'user_exists') {
+      alert('This email is already registered. Please log in instead.');
+      // Clear the error parameter from URL
+      setSearchParams({});
+    }
+  }, [searchParams, setSearchParams]);
 
   const handleEmailSignup = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError(null);
     setLoading(true);
-    // TODO: Implement Supabase authentication
-    console.log('Signup with:', fullName, email, password);
-    setTimeout(() => {
+
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
+
+    try {
+      const response = await fetch('http://localhost:3000/api/auth/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({ name: fullName, email, password, timezone }),
+      });
+      const data = await response.json();
+      console.log(data);
+      if (response.status === 201) {
+        try {
+          localStorage.setItem('postSignup', '1');
+        } catch {}
+        navigate('/connect-calendar');
+        return;
+      }
+
+      if (response.status === 409) {
+        setError(data?.error || 'User already exists');
+        return;
+      }
+
+      setError(data?.error || 'Failed to create account. Please try again.');
+    } catch (err) {
+      setError('Network error. Please check your connection and try again.');
+    } finally {
       setLoading(false);
-      try {
-        localStorage.setItem('postSignup', '1');
-      } catch {}
-      navigate('/connect-calendar');
-    }, 800);
+    }
   };
 
   const handleGoogleSignup = () => {
     // TODO: Implement Google OAuth
-    try {
-      localStorage.setItem('postSignup', '1');
-    } catch {}
     window.location.href = "http://localhost:3000/api/auth/google";
     console.log('Signup with Google');
   };
@@ -65,6 +98,11 @@ export default function Signup() {
 
           <div className="bg-gray-800 rounded-2xl p-8 border border-gray-700">
             <form onSubmit={handleEmailSignup} className="space-y-5">
+              {error && (
+                <div className="text-sm text-red-400 bg-red-950/30 border border-red-800 rounded-md px-3 py-2">
+                  {error}
+                </div>
+              )}
               <div>
                 <label htmlFor="fullName" className="block text-sm font-medium text-gray-300 mb-2">
                   Full Name

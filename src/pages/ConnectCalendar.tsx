@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Calendar, ArrowLeft, Check, Clock } from 'lucide-react';
+import { Calendar, Check, Clock } from 'lucide-react';
 import { GoogleCalendarLogo, OutlookLogo, ZoomLogo } from '../components/BrandLogos';
 
 export default function ConnectCalendar() {
@@ -21,7 +21,7 @@ export default function ConnectCalendar() {
       gradient: 'from-cyan-600 to-blue-600'
     },
     {
-      name: 'Zoom (optional)',
+      name: 'Zoom',
       description: 'Auto-create meeting links for virtual appointments.',
       actionText: 'Connect Zoom',
       href: '#',
@@ -40,13 +40,6 @@ export default function ConnectCalendar() {
                 <Calendar className="w-5 h-5 text-white" />
               </div>
               <span className="text-xl font-semibold text-white">Appointy</span>
-            </Link>
-            <Link
-              to="/"
-              className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              Back to Home
             </Link>
           </div>
         </div>
