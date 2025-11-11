@@ -3,12 +3,39 @@ import { Calendar, Check, Clock } from 'lucide-react';
 import { GoogleCalendarLogo, OutlookLogo, ZoomLogo } from '../components/BrandLogos';
 
 export default function ConnectCalendar() {
+
+  const handleConnect = async (provider: string) => {
+    if (provider === "Google Calendar") {
+      try {
+        const response = await fetch("http://localhost:3000/api/calendar/auth", {
+        method: "GET",
+        credentials: "include",
+        headers: { Accept: "application/json" },
+      });
+
+      const data = await response.json();
+
+      if (data.authUrl) {
+        window.location.href = data.authUrl;
+      } else {
+        alert(data.error || "Failed to connect calendar");
+      }
+      } catch (err) {
+        console.error("Error connecting Google Calendar:", err);
+        alert("Failed to initiate calendar connection. Please try again.");
+      }
+    } else {
+      alert("Only Google Calendar connection is implemented for now.");
+    }
+  };
+
+
   const providers = [
     {
       name: 'Google Calendar',
       description: 'Connect your Google account to sync events and availability.',
       actionText: 'Connect Google',
-      href: 'http://localhost:3000/api/auth/google',
+      href: 'http://localhost:3000/api/calendar/auth',
       icon: GoogleCalendarLogo,
       gradient: 'from-blue-600 to-purple-600'
     },
@@ -72,12 +99,12 @@ export default function ConnectCalendar() {
                 </div>
                 <h3 className="text-lg font-bold text-white mb-1">{p.name}</h3>
                 <p className="text-gray-400 text-sm mb-4">{p.description}</p>
-                <a
-                  href={p.href}
+                <button
+                  onClick={() => handleConnect(p.name)}
                   className="w-full inline-flex items-center justify-center gap-2 px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg text-sm font-medium transition-all"
                 >
                   {p.actionText}
-                </a>
+                </button>
               </div>
             ))}
           </div>
