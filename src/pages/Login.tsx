@@ -1,14 +1,30 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { Calendar, Mail, Lock, Eye, EyeOff } from 'lucide-react';
 
 export default function Login() {
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+      const errorMessage = searchParams.get("error");
+  
+      if (errorMessage === "USER_NOT_FOUND") {
+        setError("User not found. Please signup instead.");
+        setSearchParams({});
+      }
+    }, [searchParams, setSearchParams]);
+  
+    useEffect(() => {
+      if (error) {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    }, [error]);
 
   const handleEmailLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -57,7 +73,7 @@ export default function Login() {
 
   const handleGoogleLogin = () => {
     // TODO: Implement Google OAuth
-    window.location.href = "http://localhost:3000/api/auth/google";
+    window.location.href = "http://localhost:3000/api/auth/google?mode=login";
     console.log('Login with Google');
   };
 

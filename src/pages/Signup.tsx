@@ -13,13 +13,19 @@ export default function Signup() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const errorMessage = searchParams.get('error');
-    if (errorMessage === 'user_exists') {
-      alert('This email is already registered. Please log in instead.');
-      // Clear the error parameter from URL
+    const errorMessage = searchParams.get("error");
+
+    if (errorMessage === "USER_EXISTS") {
+      setError("This email is already registered. Please log in instead.");
       setSearchParams({});
     }
   }, [searchParams, setSearchParams]);
+
+  useEffect(() => {
+    if (error) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [error]);
 
   const handleEmailSignup = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -62,7 +68,7 @@ export default function Signup() {
 
   const handleGoogleSignup = () => {
     // TODO: Implement Google OAuth
-    window.location.href = "http://localhost:3000/api/auth/google";
+    window.location.href = "http://localhost:3000/api/auth/google?mode=signup";
     console.log('Signup with Google');
   };
 
